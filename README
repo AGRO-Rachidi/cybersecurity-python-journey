@@ -1,0 +1,44 @@
+# Cybersecurity Python Journey
+
+Mon carnet d'apprentissage de Python orienté cybersécurité.
+Je documente tout ici : exercices, scripts, erreurs, corrections.
+
+Objectif : construire au fil des semaines de petits outils concrets
+(lecture de logs, extraction d'IP, classification, plus tard scan réseau
+en localhost uniquement) pour progresser vers un profil analyste SOC.
+
+## Progression
+
+### Semaine 1 — Fondamentaux
+
+Notebook : [`01_fundamentals/week1.ipynb`](01_fundamentals/week1.ipynb)
+
+- Variables et types (`str`, `int`, `bool`, `None`)
+- Listes, tuples, dictionnaires
+- Conditions et boucles
+- Fonctions
+- Chaînes de caractères (`strip`, `split`, slicing)
+- Lecture / écriture de fichiers
+- Premiers pas en regex avec le module `re`
+
+### Semaine 2 — Outils en ligne de commande
+
+- [`02_cli_tools/ip_report.py`](02_cli_tools/ip_report.py) : lit un fichier de log
+  et produit un rapport d'activité IP trié par nombre d'apparitions
+- [`03_log_analysis/`](03_log_analysis/) : détection basique de brute-force
+  à partir d'un seuil d'échecs de connexion
+
+## Compétences travaillées
+
+- Structurer un script Python en fonctions (`extract`, `build_report`, `main`)
+- Passer des arguments en ligne de commande avec `sys.argv`
+- Utiliser `sys.exit()` pour signaler une erreur
+- Écrire des rapports formatés dans un fichier texte
+- Extraire des IP d'un log avec une regex simple
+
+## Notes personnelles
+
+Je progresse lentement mais je refais chaque exercice moi-même.
+Les erreurs que j'ai rencontrées sont documentées dans les notebooks.
+Prochaine étape : validation d'IP avec le module `ipaddress`, puis `try/except`
+pour rendre les scripts robustes face aux fichiers manquants.
