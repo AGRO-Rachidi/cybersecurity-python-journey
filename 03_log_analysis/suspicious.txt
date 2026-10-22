@@ -1,0 +1,4 @@
+=== Brute-force report ===
+Threshold: 3+ failed attempts
+
+Suspicious IP 10.0.0.5 attempted to login 3 times
