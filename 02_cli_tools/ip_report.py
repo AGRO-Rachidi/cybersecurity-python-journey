@@ -1,5 +1,6 @@
 import re
 import sys
+from ip_classifiers import classify
 def extract_ip(filename):
     count ={}
     with open(filename, "r") as f:
@@ -14,11 +15,14 @@ def extract_ip(filename):
  
 
 def build_report(count):
-    text = "===IP Activity Report=========================\n"
+    text = "===IP Activity Report==========\n"
     text += f"Total number of unique IPs: {len(count)}\n"
     text += "\n"
+    
     for ip, nbre in sorted(count.items(), key=lambda x:x[1], reverse=True):
-        text += f"IP {ip} -> {nbre} appearances\n"
+        label = "appearance" if nbre == 1 else "appearances"
+        type_ip = classify(ip)
+        text += f"IP {ip:<18} -> {nbre} {label:>12} ({type_ip})\n"
     return text
 
 def main():
