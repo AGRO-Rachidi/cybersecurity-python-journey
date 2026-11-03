@@ -1,30 +1,36 @@
-# Semaine 1 — Fondamentaux Python
+# Week 1: Python fundamentals
 
-Notebook : `week1.ipynb`
+Everything is in `week1.ipynb`. Each exercise has the instructions in a markdown cell and my answer under it. I left my wrong attempts and comments in, on purpose.
 
-Tout ce que j'ai fait pour poser les bases. Les cellules contiennent
-l'énoncé, mon code, et parfois mes commentaires sur ce que je n'avais pas
-compris au début.
+`suspicious.txt` is the output of the brute-force exercise (IPs with 3 or more failed logins).
 
-## Ce que j'ai couvert
+Note: the notebook reads `fake-access.log` from the same folder. That file is in `02_cli_tools/`, so copy it here if you want to run the cells again.
 
-- types de base et conversions (`int()`, `str()`, `type()`)
-- listes (indexation, `append`, `remove`, `len`, `in`)
-- tuples (immutabilité, unpacking)
-- dictionnaires (accès par clé, `items()`, `get()`)
-- conditions `if / elif / else` et opérateurs logiques
-- boucles `for` et `while`, avec `break` et `continue`
-- fonctions avec `return`, paramètres, et le piège des fonctions qui
-  modifient en place (`.append()` renvoie `None`)
-- manipulation de chaînes (`strip`, `split`, slicing)
-- lecture / écriture de fichiers avec `with open(...)`
-- premières regex avec `re.findall` et `re.search`
+## What I covered
 
-## Difficultés rencontrées
+- variables and types, `int()`, `str()`, `type()`
+- lists: indexing, `[-1]`, `append`, `remove`, `len`, `in`
+- tuples: you can't change them, and unpacking
+- dicts: access by key, `.get()`, `.items()`
+- `if / elif / else`, `and` / `or`, checking if a port is in a range
+- `for` and `while`, with `break` and `continue`
+- functions: `is_insecure(port)`, `port_info(port)`, `scan_ports(ports)`
+- strings: `strip()`, `split()`, `split("=")` to get the value after `ip=`
+- reading a log file line by line with `with open(...)`
+- regex with `re.findall` and `re.search`: IPs, dates, `user=...`, `port=...`
+- last exercise: read the log, count the IPs in a dict, write a report
 
-- `x = x.append(...)` qui renvoie `None`
-- `line.split()` sans stocker le résultat
-- la variable `list` qui écrase le built-in Python
-- l'ordre des arguments dans `sorted(..., key=lambda x: x[1], reverse=True)`
+## What was hard
 
-Le notebook garde la trace de ces erreurs et des corrections.
+- `x = x.append(...)`: append changes the list in place and returns `None`, so I lost my list. Took me a while to understand why.
+- calling `line.split()` and not saving the result anywhere.
+- naming a variable `list`. It works, until you need the real `list()`.
+- `sorted(d.items(), key=lambda x: x[1], reverse=True)`. I had to read it several times before I understood what `x[1]` was.
+- `re.search` returns `None` when nothing matches, so `.group()` crashes. I need an `if` first.
+- my IP regex `\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}` accepts `999.999.999.999`. It only checks the shape. That's why I moved to `ipaddress` in week 2.
+
+## What clicked
+
+- dicts as counters (`if ip in count: count[ip] += 1`). I use this everywhere now.
+- `with open(...)`: no need to think about closing the file.
+- once I got the habit of writing small functions, the last exercise was a lot easier.

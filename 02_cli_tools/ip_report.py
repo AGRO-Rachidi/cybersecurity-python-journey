@@ -24,6 +24,7 @@ def extract_ip(filename):
                     # Sinon, on la range dans le dictionnaire pour la première fois.
                     count[ip] = 1
                     
+    # S'il n'y a aucune adresse dans le fichier, on prévient et on renvoie un dictionnaire vide.
     if not count:
         print(f"Warning: no IP found in {filename}!")
         return {}
@@ -83,6 +84,7 @@ def main():
     # On récupère les adresses et on prépare le rapport lisible.
     try:
         extract = extract_ip(filename)
+    # Ces messages aident à comprendre pourquoi le fichier n'a pas pu être lu.
     except FileNotFoundError:
         print(f"Error: file '{filename}' not found.")
         print("Usage: python3 ip_report.py <logfile>")
@@ -91,9 +93,10 @@ def main():
         print(f"Error: Permission denied for '{filename}'.")
         sys.exit(1)
     
+    # S'il n'y a rien à compter, le programme s'arrête sans créer de rapports vides.
     if not extract:
         print("No IPs to report. Exiting...")
-        sys.exit(0)    
+        sys.exit(0)
     report = build_report(extract)
     # On enregistre le rapport en texte, puis on l'affiche aussi à l'écran.
     with open("report_ip.txt","w", encoding="utf-8") as f:
