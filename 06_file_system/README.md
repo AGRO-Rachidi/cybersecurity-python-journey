@@ -5,7 +5,7 @@ et exécuter des commandes système.
 
 ---
 
-## . `log_finder.py` — Trouve tous les fichiers .log d'un dossier
+## 1. `log_finder.py` — Trouve tous les fichiers .log d'un dossier
 
 **À quoi ça sert ?**
 Quand tu analyses un système, les logs sont éparpillés un peu partout.
