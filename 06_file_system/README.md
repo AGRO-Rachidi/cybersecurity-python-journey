@@ -1,39 +1,11 @@
 # Outils de fichiers
 
-Ce dossier contient trois petits outils pour travailler avec des fichiers
+Ce dossier contient deux  petits outils pour travailler avec des fichiers
 et exécuter des commandes système.
 
 ---
 
-## 1. `file_hasher.py` — Calcule l'empreinte SHA256 d'un fichier
-
-**À quoi ça sert ?**
-Un hash, c'est comme une empreinte digitale de fichier. Si quelqu'un
-modifie le fichier, le hash change complètement. Ça permet de vérifier
-qu'un fichier n'a pas été altéré.
-
-**Comment l'utiliser ?**
-python3 file_hasher.py <nom_du_fichier>
-
-
-**Exemple :**
-$ python3 file_hasher.py fake-access.log
-File: fake-access.log
-Size: 254 bytes
-SHA256: 66c00833f0e9686a9af55310967ac9d371caaa5ab099ced6179e1f1e3e241086
-
-
-**Ce qu'il fait :**
-1. Ouvre le fichier en mode binaire (octet par octet)
-2. Lit le fichier par petits blocs de 8 Ko (pour ne pas saturer la mémoire)
-3. Calcule le SHA256 au fur et à mesure
-4. Affiche le résultat
-
-**Validé :** le hash produit est identique à celui de `sha256sum` sur Linux.
-
----
-
-## 2. `log_finder.py` — Trouve tous les fichiers .log d'un dossier
+## . `log_finder.py` — Trouve tous les fichiers .log d'un dossier
 
 **À quoi ça sert ?**
 Quand tu analyses un système, les logs sont éparpillés un peu partout.
@@ -65,7 +37,7 @@ Found 3 log files
 
 ---
 
-## 3. `cmd_runner.py` — Exécute une commande système
+## 2. `cmd_runner.py` — Exécute une commande système
 
 **À quoi ça sert ?**
 Parfois, on veut lancer une commande (comme `ls`, `ss`, `grep`) depuis
