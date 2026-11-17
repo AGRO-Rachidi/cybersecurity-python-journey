@@ -1,78 +1,166 @@
-# cybersecurity-python-journey
+# Cybersecurity Python Journey
 
-My notes and small scripts from learning Python, with a SOC analyst job as the goal.
+Mon carnet d'apprentissage de Python orienté cybersécurité.
+Je documente tout ici : exercices, scripts, erreurs, corrections.
 
-## Why this repo
+L'objectif : construire au fil des semaines de petits outils concrets
+pour progresser vers un profil analyste SOC (Security Operations Center).
 
-I started Python from zero a couple of weeks ago. I want to work in a SOC, and almost every job post asks for some scripting, so I'm learning it with security examples instead of the usual "hello world" stuff. I push everything here, mistakes included, so I can look back and see where I started.
+## Comment lire ce dépôt
 
-## Progress
-
-**Week 1: fundamentals** ([01_fundamentals](01_fundamentals/))
-
-One big notebook, `week1.ipynb`. Variables, lists, tuples, dicts, if/elif/else, for and while loops, functions, string methods, reading files, and my first regex. The exercises are all about ports, IPs and fake login logs. It ends with a small script that counts failed logins per IP.
-
-**Week 2: command line tools** ([02_cli_tools](02_cli_tools/), [03_networking](03_networking/))
-
-This is where I started writing real `.py` files instead of notebook cells:
-- `sys.argv` to pass a file name from the terminal
-- the `ipaddress` module to check and classify IPs
-- writing reports in TXT, JSON and CSV
-- `try/except` so the script doesn't crash on a missing file
-- `socket` for a tiny port scanner (localhost only)
-
-## Skills acquired
-
-Week 1
-- basic types and conversions
-- lists, tuples, dicts and when to use which one
-- loops with `break` / `continue`
-- writing functions that `return` something instead of just printing
-- `strip()`, `split()`, slicing
-- `with open(...)` to read and write files
-- `re.findall` and `re.search`, capture groups
-
-Week 2
-- splitting a script into functions with a `main()`
-- `if __name__ == "__main__":` and importing my own module
-- reading arguments with `sys.argv`, exiting with `sys.exit()`
-- `ipaddress.ip_address()` and properties like `is_private`, `is_loopback`
-- `json.dump` and `csv.DictWriter`
-- catching `FileNotFoundError` and `PermissionError`
-- TCP sockets: `settimeout()` and `connect_ex()`
-
-## Tools built
-
-| Tool | Folder | What it does |
-|------|--------|--------------|
-| `ip_report.py` | [02_cli_tools](02_cli_tools/) | counts the IPs in a log file and writes a report (txt, json, csv) |
-| `ip_classifiers.py` | [02_cli_tools](02_cli_tools/) | says if an IP is loopback, private, public, other or invalid |
-| `is_valid_ip.py` | [02_cli_tools](02_cli_tools/) | first try with `ipaddress`: valid IP or not |
-| `mini_scanner.py` | [03_networking](03_networking/) | checks a few TCP ports on 127.0.0.1 |
-
-## Roadmap
-
-- [x] Python basics (week 1)
-- [x] regex basics
-- [x] CLI script with `sys.argv`
-- [x] IP validation with `ipaddress`
-- [x] JSON / CSV output
-- [x] error handling with `try/except`
-- [x] small TCP scanner on localhost
-- [ ] files and strings in more depth (bigger, messier logs)
-- [ ] `subprocess`
-- [ ] `hashlib` (hashing files, checking hashes)
-- [ ] `scapy`
-- [ ] `paramiko`
-- [ ] `impacket`
-
-## Environment
-
-- Python 3.13
-- Linux
-- VS Code + Jupyter extension
-- no external packages so far, only the standard library
+- Chaque dossier numeroté correspond à un sujet.
+- Chaque dossier contient un `README.md` qui explique ce qu'il y a dedans.
+- Les notebooks `.ipynb` sont mes notes de travail, avec les erreurs et corrections.
 
 ---
 
-Slow progress is still progress. I write every script myself, then I go back and fix it.
+## Progression
+
+### Semaine 1 — Fondamentaux Python
+
+**Fichiers :**
+- [`01_fundamentals/week1.ipynb`](01_fundamentals/week1.ipynb) — notebook de travail
+- [`01_fundamentals/README.md`](01_fundamentals/README.md) — notes
+
+**Sujets couverts :**
+- Variables et types (`str`, `int`, `bool`, `None`)
+- Listes, tuples, dictionnaires
+- Conditions et boucles (`if/elif/else`, `for`, `while`, `break`, `continue`)
+- Fonctions (`def`, `return`, paramètres)
+- Chaînes de caractères (`strip`, `split`, slicing, f-strings)
+- Lecture et écriture de fichiers (`with open(...)`)
+- Premiers pas en regex avec `re` (`findall`, `search`)
+- Mini-outil : détection de brute-force dans un fichier de log (compte les FAILED par IP, seuil 3)
+
+### Semaine 2 — Outils en ligne de commande
+
+**Fichiers :**
+- [`02_cli_tools/ip_report.py`](02_cli_tools/ip_report.py) — analyse de logs IP
+- [`02_cli_tools/ip_classifiers.py`](02_cli_tools/ip_classifiers.py) — classification d'IP
+- [`02_cli_tools/week2.ipynb`](02_cli_tools/week2.ipynb) — notebook de travail
+- [`03_networking/mini_scanner.py`](03_networking/mini_scanner.py) — scanner TCP localhost
+
+**Sujets couverts :**
+- `sys.argv` — arguments en ligne de commande
+- `sys.exit()` — codes de sortie
+- `if __name__ == "__main__"` — point d'entrée
+- `ipaddress` — validation et classification d'IP (private/public/loopback/invalid)
+- JSON (`json.dump`, `json.load`)
+- CSV (`csv.DictWriter`)
+- `try/except` — gestion d'erreurs (`FileNotFoundError`, `PermissionError`, `CalledProcessError`)
+- `socket` — créer une socket TCP, timeout, `connect_ex`, scanner des ports sur localhost
+
+**Outils construits :**
+- `ip_report.py` : lit un log, extrait les IPs, les classe, produit 3 rapports (txt, json, csv)
+- `ip_classifiers.py` : module réutilisable pour valider et classer une IP
+- `mini_scanner.py` : teste si des ports TCP sont ouverts sur `127.0.0.1`
+
+### Semaine 3 — Outils système et web
+
+**Fichiers :**
+- [`05_hashing/file_hasher.py`](05_hashing/file_hasher.py) — SHA256 d'un fichier
+- [`06_file_system/log_finder.py`](06_file_system/log_finder.py) — trouve tous les `.log`
+- [`06_file_system/cmd_runner.py`](06_file_system/cmd_runner.py) — exécute une commande système
+- [`07_regex_advanced/log_parser.py`](07_regex_advanced/log_parser.py) — parse des logs syslog et kernel
+- [`08_http/url_checker.py`](08_http/url_checker.py) — vérifie les headers de sécurité d'un site
+
+**Sujets couverts :**
+- `hashlib` — SHA256, lecture de fichier par blocs
+- `pathlib` — parcours récursif (`rglob`), `Path.stat()`
+- `subprocess` — exécuter des commandes, capturer sortie, gérer erreurs
+- Regex avancée — groupes nommés `(?P<name>...)`, `groupdict()`, groupes non-capturants `(?:...)`
+- `requests` — requêtes HTTP, status, headers, cookies, redirections
+- `ssl` — certificat TLS
+
+**Outils construits :**
+- `file_hasher.py` : calcule le SHA256 d'un fichier par blocs (validé contre `sha256sum`)
+- `log_finder.py` : trouve tous les `.log` d'une arborescence avec taille et hash
+- `cmd_runner.py` : wrapper autour de `subprocess.run`, affiche sortie et code de retour
+- `log_parser.py` : parse des logs syslog, kernel, SSH et UFW en un dict structuré
+- `url_checker.py` : analyse une URL (status, 6 headers de sécurité, cookies, redirections, certificat TLS)
+
+---
+
+## Structure du dépôt
+
+cybersecurity-python-journey/
+├── README.md ← ce fichier
+├── .gitignore
+├── 01_fundamentals/ ← notebook semaine 1
+├── 02_cli_tools/ ← ip_report, ip_classifiers, week2
+├── 03_networking/ ← mini_scanner
+├── 05_hashing/ ← file_hasher
+├── 06_file_system/ ← log_finder, cmd_runner
+├── 07_regex_advanced/ ← log_parser
+└── 08_http/ ← url_checker
+
+
+---
+
+## Compétences travaillées
+
+**Python :**
+- Structurer un script en fonctions
+- Arguments en ligne de commande (`sys.argv`)
+- Gestion d'erreurs (`try/except`)
+- Lecture/écriture de fichiers (texte, binaire, JSON, CSV)
+- Regex simple et avancée
+- Modules standards (`hashlib`, `pathlib`, `subprocess`, `socket`, `ssl`)
+- Modules externes (`requests`)
+- Connexions réseau (TCP, HTTP, TLS)
+
+**Cybersécurité :**
+- Analyse de logs (extraction, comptage, classification)
+- Détection de brute-force (seuil de tentatives échouées)
+- Validation et classification d'IP (private/public/loopback/invalid)
+- Hachage de fichiers (intégrité, comparaison avec `sha256sum`)
+- Scan de ports sur localhost
+- Parsing de logs système (syslog, kernel, SSH, UFW)
+- Reconnaissance web (headers de sécurité, cookies, TLS)
+
+---
+
+## Roadmap
+
+- [x] Fundamentals (variables, types, listes, tuples, dicts)
+- [x] Conditions et boucles
+- [x] Fonctions
+- [x] Chaînes de caractères
+- [x] Lecture/écriture de fichiers
+- [x] Regex simple
+- [x] CLI (sys.argv, sys.exit)
+- [x] `ipaddress` (validation, classification)
+- [x] Rapports JSON et CSV
+- [x] Gestion d'erreurs (try/except)
+- [x] Sockets TCP (scanner localhost)
+- [x] Hachage SHA256
+- [x] `pathlib` (parcours de fichiers)
+- [x] `subprocess` (exécution de commandes)
+- [x] Regex avancée (groupes nommés, non-capturants)
+- [x] HTTP et reconnaissance web (requests, ssl)
+- [ ] Hachage avancé (intégrité multi-fichiers, API VirusTotal)
+- [ ] Web scraping (BeautifulSoup)
+- [ ] Programmation asynchrone (asyncio)
+- [ ] Frameworks de sécurité (`scapy`, `paramiko`, `impacket`)
+
+---
+
+## Environnement
+
+- Python 3.13
+- Linux (Ubuntu / Debian)
+- VS Code
+- Package externe : `requests` (installé via `pip`)
+
+---
+
+## Notes personnelles
+
+Je progresse lentement mais je refais chaque exercice moi-même.
+Les erreurs que j'ai rencontrées sont documentées dans les notebooks.
+Prochaine étape : approfondir le hachage (intégrité de fichiers,
+détection de malware par hash) puis attaquer le web scraping.
+
+---
+
+*"Slow is smooth. Smooth is fast."*
