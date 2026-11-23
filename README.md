@@ -79,6 +79,34 @@ pour progresser vers un profil analyste SOC (Security Operations Center).
 - `log_parser.py` : parse des logs syslog, kernel, SSH et UFW en un dict structuré
 - `url_checker.py` : analyse une URL (status, 6 headers de sécurité, cookies, redirections, certificat TLS)
 
+### Semaine 4 — Intégrité, API, scraping et asyncio
+
+**Fichiers :**
+- [`09_integrity/integrity_checker.py`](09_integrity/integrity_checker.py) — vérifie les fichiers avec leurs hash SHA256
+- [`09_integrity/README.md`](09_integrity/README.md) — documentation du vérificateur d'intégrité
+- [`10_api/vt_lookup.py`](10_api/vt_lookup.py) — consulte des hash ou des URL sur VirusTotal
+- [`10_api/README.md`](10_api/README.md) — documentation du client API VirusTotal
+- [`11_web_scraping/web_scraper.py`](11_web_scraping/web_scraper.py) — extrait les liens d'une page web
+- [`11_web_scraping/README.md`](11_web_scraping/README.md) — documentation du scraper
+- [`12_async/async_scanner.py`](12_async/async_scanner.py) — scanner TCP asynchrone pour localhost
+- [`12_async/README.md`](12_async/README.md) — documentation du scanner asynchrone
+
+**Sujets couverts :**
+- Vérification d'intégrité par comparaison de hash SHA256
+- Variables d'environnement et gestion des clés API
+- Requêtes API avec `requests` et traitement de réponses JSON
+- Encodage base64 URL-safe pour les recherches d'URL
+- Limites de requêtes avec pause entre les appels
+- Extraction de liens HTML avec BeautifulSoup
+- Programmation asynchrone avec `asyncio`, `async`/`await` et `asyncio.gather()`
+- Timeout de connexions TCP avec `asyncio.wait_for()`
+
+**Outils construits :**
+- `integrity_checker.py` : charge un fichier témoin puis compare chaque hash avec les fichiers trouvés dans un dossier
+- `vt_lookup.py` : prend un hash, un fichier de hash ou une URL et affiche les résultats VirusTotal
+- `web_scraper.py` : récupère une page web et affiche les liens qu'elle contient
+- `async_scanner.py` : teste plusieurs ports TCP en parallèle sur `127.0.0.1`
+
 ---
 
 ## Structure du dépôt
@@ -92,7 +120,11 @@ cybersecurity-python-journey/
 ├── 05_hashing/ ← file_hasher
 ├── 06_file_system/ ← log_finder, cmd_runner
 ├── 07_regex_advanced/ ← log_parser
-└── 08_http/ ← url_checker
+├── 08_http/ ← url_checker
+├── 09_integrity/ ← integrity_checker
+├── 10_api/ ← vt_lookup
+├── 11_web_scraping/ ← web_scraper
+└── 12_async/ ← async_scanner
 
 
 ---
@@ -105,16 +137,21 @@ cybersecurity-python-journey/
 - Gestion d'erreurs (`try/except`)
 - Lecture/écriture de fichiers (texte, binaire, JSON, CSV)
 - Regex simple et avancée
-- Modules standards (`hashlib`, `pathlib`, `subprocess`, `socket`, `ssl`)
-- Modules externes (`requests`)
+- Modules standards (`hashlib`, `pathlib`, `subprocess`, `socket`, `ssl`, `asyncio`)
+- Modules externes (`requests`, `beautifulsoup4`)
 - Connexions réseau (TCP, HTTP, TLS)
+- Traitement de données JSON provenant d'une API
+- Programmation asynchrone
 
 **Cybersécurité :**
 - Analyse de logs (extraction, comptage, classification)
 - Détection de brute-force (seuil de tentatives échouées)
 - Validation et classification d'IP (private/public/loopback/invalid)
 - Hachage de fichiers (intégrité, comparaison avec `sha256sum`)
+- Vérification d'intégrité de plusieurs fichiers
 - Scan de ports sur localhost
+- Analyse de fichiers et d'URL avec VirusTotal
+- Recherche de liens sur une page web
 - Parsing de logs système (syslog, kernel, SSH, UFW)
 - Reconnaissance web (headers de sécurité, cookies, TLS)
 
@@ -138,9 +175,10 @@ cybersecurity-python-journey/
 - [x] `subprocess` (exécution de commandes)
 - [x] Regex avancée (groupes nommés, non-capturants)
 - [x] HTTP et reconnaissance web (requests, ssl)
-- [ ] Hachage avancé (intégrité multi-fichiers, API VirusTotal)
-- [ ] Web scraping (BeautifulSoup)
-- [ ] Programmation asynchrone (asyncio)
+- [x] Hachage avancé (intégrité multi-fichiers)
+- [x] API VirusTotal
+- [x] Web scraping (BeautifulSoup)
+- [x] Programmation asynchrone (asyncio)
 - [ ] Frameworks de sécurité (`scapy`, `paramiko`, `impacket`)
 
 ---
@@ -150,7 +188,7 @@ cybersecurity-python-journey/
 - Python 3.13
 - Linux (Ubuntu / Debian)
 - VS Code
-- Package externe : `requests` (installé via `pip`)
+- Packages externes : `requests`, `beautifulsoup4`
 
 ---
 
@@ -158,8 +196,7 @@ cybersecurity-python-journey/
 
 Je progresse lentement mais je refais chaque exercice moi-même.
 Les erreurs que j'ai rencontrées sont documentées dans les notebooks.
-Prochaine étape : approfondir le hachage (intégrité de fichiers,
-détection de malware par hash) puis attaquer le web scraping.
+Cette semaine, j'ai ajouté des outils pour vérifier l'intégrité de fichiers, consulter VirusTotal, extraire des liens web et tester des ports TCP de manière asynchrone.
 
 ---
 
